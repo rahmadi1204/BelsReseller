@@ -47,6 +47,31 @@
 
                         </ul>
                     </li>
+
+                    <li class="nav-item {{ $transaction ?? '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-chart-line text-success"></i>
+                            <p>
+                                Transaksi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/resellers" class="nav-link {{ $transactionOrder ?? '' }}">
+                                    <i class="fa fa-cart-arrow-down nav-icon text-info"></i>
+                                    <p>Order</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/products" class="nav-link {{ $transactionReport ?? '' }}">
+                                    <i class="fa fa-clipboard text-warning nav-icon"></i>
+                                    <p>Laporan</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 @else
                     <li class="nav-item {{ $desktop ?? '' }}">
                         <a href="#" class="nav-link">
@@ -74,18 +99,26 @@
                     </li>
                 @endif
                 <li class="nav-header">OTHER</li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="https://belshouse.com/home" class="nav-link" target="_blank">
                         <img src="{{ asset('/') }}dist/img/belsLogo.png" class="nav-icon text-info"></img>
                         <p>Official Website</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="https://www.instagram.com/belshouse/" class="nav-link" target="_blank">
                         <i class="fab fa-instagram text-danger nav-icon"></i>
                         <p>Instagram</p>
                     </a>
                 </li>
+                @if (Auth::user()->role != 'admin')
+                    <li class="nav-item">
+                        <a href="https://wa.me/085155099250/" class="nav-link" target="_blank">
+                            <i class="fab fa-whatsapp text-success nav-icon"></i>
+                            <p>Whatsapp Admin</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

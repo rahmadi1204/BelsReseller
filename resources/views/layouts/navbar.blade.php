@@ -31,11 +31,15 @@
                     <i class="fas fa-key mr-2 text-warning"></i> Ganti Password
                     {{-- <span class="float-right text-muted text-sm">3 mins</span> --}}
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="/profile" class="dropdown-item">
-                    <i class="fas fa-user mr-2 text-success"></i> Profil
-                    {{-- <span class="float-right text-muted text-sm">12 hours</span> --}}
-                </a>
+
+                @if (Auth::user()->role != 'admin')
+                    <div class="dropdown-divider"></div>
+                    <a href="/profile" class="dropdown-item">
+                        <i class="fas fa-user mr-2 text-success"></i> Profil
+                        {{-- <span class="float-right text-muted text-sm">12 hours</span> --}}
+                    </a>
+                @endif
+
                 <div class="dropdown-divider"></div>
                 <a href="/logout" class="dropdown-item">
                     <i class="fas fa-power-off mr-2 text-danger"></i> Logout
