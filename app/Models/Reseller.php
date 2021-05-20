@@ -12,6 +12,7 @@ class Reseller extends Model
         'user_id',
         'role',
         'name',
+        'instagram',
         'gender',
         'email',
         'birthday',
@@ -19,4 +20,8 @@ class Reseller extends Model
         'phone',
         'image',
     ];
+    public function User()
+    {
+        return $this->hasOne(User::class);
+    }
 }

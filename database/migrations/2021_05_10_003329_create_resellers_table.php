@@ -18,6 +18,7 @@ class CreateResellersTable extends Migration
             $table->integer('user_id')->unique();
             $table->string('role');
             $table->string('name');
+            $table->string('instagram')->nullable();
             $table->string('gender')->nullable();
             $table->string('email')->unique();
             $table->date('birthday');

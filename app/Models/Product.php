@@ -11,10 +11,14 @@ class Product extends Model
 
     protected $fillable = [
         'product_code',
+        'product_slug',
         'product_category',
         'product_name',
         'product_image',
         'product_price',
-        'product_stok',
     ];
+    public function product_color()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
 }

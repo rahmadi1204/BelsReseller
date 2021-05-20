@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         DB::table('users')->insert([
             [
                 'username' => 'admin',
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
                 'username' => 'adi',
                 'name' => 'Adi',
                 'password' =>Hash::make('admin'),
-                'role' => 'reseller',
+                'role' =>'reseller',
                 'created_at' => now()
             ]
         ]);
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
                 'user_id' => 2,
                 'role' => 'reseller',
                 'name' => 'Adi',
+                'gender' => 'L',
                 'email' => 'adi@gmail.com',
                 'birthday' => '1996/04/12',
                 'address' => 'Maospati',
@@ -48,26 +50,29 @@ class DatabaseSeeder extends Seeder
         DB::table('categories')->insert([
             [
                'category_name' => 'Softcotton',
+               'category_code' => 'SF',
                 'created_at' => now()
 
             ],
             [
                 'category_name' => 'Bella Square',
+                'category_code' => 'BL',
                 'created_at' => now()
             ],
             [
                 'category_name' => 'Aksesoris',
+                'category_code' => 'Aks',
                 'created_at' => now()
             ]
         ]);
         DB::table('products')->insert([
             [
-               'product_category' => 'Softcotton',
+               'product_category' => 'SF',
+               'product_slug' => 'softcotton-basic-square',
                'product_code' => 'SF-Square',
                'product_name' => 'Softcotton Basic Square',
                'product_price' => '25000',
-               'product_stok' => '25',
-
+               'created_at' => now()
             ]
         ]);
     }

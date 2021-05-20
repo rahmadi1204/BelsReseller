@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('head')
     @include('css.datatable')
-    @include('js.datatable')
 @endsection
 @section('content')
     <section class="content">
@@ -98,6 +97,7 @@
     </section>
 @endsection
 @section('script')
+    @include('js.datatable')
     @include('script.datatable')
     @include('script.delete-modal')
 @endsection

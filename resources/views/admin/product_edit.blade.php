@@ -1,15 +1,17 @@
 @extends('layouts.app')
 @section('head')
     @include('css.form-control')
-    @include('js.form-control')
 @endsection
 @section('content')
     <section class="content">
         <div class="row">
             <div class="col-md-6">
-                <div class="card card-info">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Update Data Produk</h3>
+                        <div class="card-tools">
+                            <a href="/products" class="btn btn-outline-secondary btn-sm">Kembali</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('product.update') }}" method="post" enctype="multipart/form-data">
@@ -99,7 +101,7 @@
                             </div>
                             <!-- /.form group -->
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Stok Produk</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -115,7 +117,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <!-- /.form group -->
+                            <!-- /.form group --> --}}
                             <div class="form-group">
                                 <label>JPG, JPEG, PNG, Maks 2Mb</label>
 
@@ -137,7 +139,7 @@
             </div>
             <div class="col-md-6 d-flex">
 
-                <div class="card card-teal">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Gambar</h3>
                     </div>
@@ -169,7 +171,7 @@
         </div>
         <div class="row">
             <div class="card mx-2 col">
-                <div class="card-footer">
+                <div class="card-footer bg-white">
                     <button type="submit" class="btn btn-outline-success btn-block">Update</button>
                     </form>
                 </div>
@@ -179,6 +181,7 @@
 
 @endsection
 @section('script')
+    @include('js.form-control')
     @include('script.form-control')
     @include('script.image-upload')
 @endsection

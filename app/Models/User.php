@@ -11,6 +11,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function reseller()
+    {
+       return $this->belongsTo(Reseller::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -19,7 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'username',
-        'role',
+        'role_id',
         'password',
         'image',
     ];

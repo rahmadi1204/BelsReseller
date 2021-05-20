@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Validated;
 
 class ResellersController extends Controller
@@ -63,12 +64,13 @@ class ResellersController extends Controller
         if(request('image') == null) {
             $filename = null;
         } else {
-            $filename = date('ymdhis').'.'.request('image')->extension();
+            $filename = $request->name.'.'.request('image')->extension();
         }
         DB::table('users')
         ->insert([
             'username' => $request->username,
             'name' => $request->name,
+            'instagram' => $request->instagram,
             'password' => bcrypt('1234'),
             'role' => 'reseller',
             'image' => $filename,
@@ -80,6 +82,7 @@ class ResellersController extends Controller
         DB::table('resellers')
         ->insert([
             'name' => $request->name,
+            'instagram' => $request->instagram,
             'gender' => $request->gender,
             'email' => $request->email,
             'birthday' => $request->birthday,
@@ -151,7 +154,7 @@ class ResellersController extends Controller
 
                  } else {
                     if ($image == null) {
-                    $image = date('ymdhis').'.'.request('image')->extension();
+                    $image = $request['name'].'.'.request('image')->extension();
                     request()->file('image')->move(public_path('/dist/img/resellers/'), $image);
                 }  else {
                     request()->file('image')->move(public_path('/dist/img/resellers/'), $image);
@@ -169,6 +172,7 @@ class ResellersController extends Controller
               ->where('user_id','=',$request['id'])
               ->update([
                   'name' => $request['name'],
+                  'instagram' => $request['instagram'],
                   'gender' => $request['gender'],
                   'email' => $request['email'],
                   'birthday' => $request['birthday'],
@@ -219,7 +223,102 @@ class ResellersController extends Controller
             session()->flash("Fail","Data Reseller Belum Dihapus");
             return redirect('resellers');
         }
+    }
+    public function profile()
+    {
+        $id = Auth::user()->id;
+        $username = DB::table('users')
+        ->where('id','=',$id)
+        ->first();
+        $profile = DB::table('resellers')
+        ->where('user_id','=',$id)
+        ->first();
+        //dd($profile);
+        return view('resellers.profile',[
+            'profile' => $profile,
+            'username' => $username,
+             'title' => 'Profil Reseller'
+            ]);
+    }
+    public function updateProfile()
+    {
+        $request = request()->all();
+        //dd($request);
+        $image = DB::table('resellers')
+        ->where('user_id','=',$request['id'])
+        ->value('image');
+        if(request('image') == null) {
 
+                 } else {
+                    if ($image == null) {
+                    $image = date('ymdhis').'.'.request('image')->extension();
+                    request()->file('image')->move(public_path('/dist/img/resellers/'), $image);
+                }  else {
+                    request()->file('image')->move(public_path('/dist/img/resellers/'), $image);
+                }
+            }
+            //dd($image);
+            DB::table('users')
+            ->where('id','=', $request['id'])
+            ->update([
+                'username' => $request['username'],
+                'image' => $image,
+                'updated_at' => now()
+            ]);
+              $update = DB::table('resellers')
+              ->where('user_id','=',$request['id'])
+              ->update([
+                  'name' => $request['name'],
+                  'gender' => $request['gender'],
+                  'email' => $request['email'],
+                  'birthday' => $request['birthday'],
+                  'address' => $request['address'],
+                  'phone' => $request['phone'],
+                  'image' => $image,
+                  'updated_at' => now()
+                  ]);
+                if ($update) {
+                    session()->flash("Ok","Data Telah Diupdate");
+                    return redirect('/');
+                } else {
+                    session()->flash("Fail","Data Gagal Diupdate");
+                    return redirect('profile');
+                }
+
+    }
+
+    public function shopping()
+    {
+       $imageProduct =  DB::table('products')
+       ->select('product_image','id_product','product_name',)
+       ->orderByDesc('created_at')
+       ->paginate(3);
+        //dd($imageProduct);
+        $products = DB::table('products')
+        // ->join('product_colors', 'products.product_code', '=','product_colors.product_code')
+         ->get();
+        return view('resellers.shopping', [
+            'imageProduct' => $imageProduct,
+             'products' => $products,
+             'title' => 'Bels Product',
+             ]);
+
+    }
+    public function productOrder($id)
+    {
+
+        //dd($id);
+       $product =  DB::table('products')
+       ->where('id_product','=', $id)
+       ->first();
+        //dd($product);
+
+        $color = DB::table('product_colors')
+        ->where('product_id','=', $id)
+        ->orderBy('color')
+        ->get();
+        // dd($color);
+        return view('resellers.product-order', ['product' => $product, 'color' =>$color]);
 
     }
 }

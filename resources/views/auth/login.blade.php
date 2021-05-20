@@ -1,7 +1,15 @@
 @include('layouts.head')
+<style>
+    .loginBG {
+        background-image: url('{{ asset('dist/img/bg.png') }}');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
 
-<body class="hold-transition login-page" style="background-color: rgb(161, 250, 250)">
-    <x-alert></x-alert>
+</style>
+
+<body class="hold-transition login-page loginBG">
 
     <div class="login-box">
         <div class="login-logo">
@@ -75,6 +83,17 @@
         </div>
     </div>
     <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="{{ asset('/') }}plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('/') }}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('/') }}dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset('/') }}dist/js/demo.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('/') }}plugins/sweetalert2/sweetalert2.min.js"></script>
+    <x-alert></x-alert>
 
 </body>
 

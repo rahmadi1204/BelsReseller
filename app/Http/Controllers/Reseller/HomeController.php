@@ -10,11 +10,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-       $imageProduct =  DB::table('products')
-       ->select('product_image')
-       ->get();
-        //dd($imageProduct);
-        return view('resellers.home', ['imageProduct' => $imageProduct]);
-
+        $imageProduct =  DB::table('products')
+        ->select('product_image','id_product','product_name',)
+        ->orderByDesc('created_at')
+        ->paginate(3);
+         //dd($imageProduct);
+         return view('resellers.home', ['imageProduct' => $imageProduct]);
     }
 }
